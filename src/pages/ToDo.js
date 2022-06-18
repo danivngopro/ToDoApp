@@ -42,25 +42,29 @@ function ToDo() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const q = query(collection(db, "todos"));
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      let todosArray = [];
-      querySnapshot.forEach((doc) => {
-        todosArray.push({ ...doc.data(), id: doc.id });
+    if (!isLoading) {
+      const q = query(collection(db, auth.currentUser.email));
+      const unsub = onSnapshot(q, (querySnapshot) => {
+        let todosArray = [];
+        querySnapshot.forEach((doc) => {
+          todosArray.push({ ...doc.data(), id: doc.id });
+        });
+        setTodos(todosArray);
       });
-      setTodos(todosArray);
-    });
-    return () => unsub();
-  }, []);
+      return () => unsub();
+    }
+  }, [isLoading]);
 
   const handleEdit = async (todo, title) => {
-    await updateDoc(doc(db, "todos", todo.id), { title: title });
+    await updateDoc(doc(db, auth.currentUser.email, todo.id), { title: title });
   };
   const toggleComplete = async (todo) => {
-    await updateDoc(doc(db, "todos", todo.id), { completed: !todo.completed });
+    await updateDoc(doc(db, auth.currentUser.email, todo.id), {
+      completed: !todo.completed,
+    });
   };
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "todos", id));
+    await deleteDoc(doc(db, auth.currentUser.email, id));
   };
 
   return (

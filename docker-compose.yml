@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  todoapp:
+    container_name: todoapp
+    build:
+      context: .
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 3001:3000

@@ -2,6 +2,7 @@ import "./ToDoListAdd.css";
 import * as React from "react";
 import { db } from "../firebase/base";
 import { collection, addDoc } from "firebase/firestore";
+import { auth } from "../firebase/base";
 
 export default function ToDoListAdd() {
   const [title, setTitle] = React.useState("");
@@ -9,7 +10,7 @@ export default function ToDoListAdd() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (title !== "") {
-      await addDoc(collection(db, "todos"), {
+      await addDoc(collection(db, auth.currentUser.email), {
         title,
         completed: false,
       });

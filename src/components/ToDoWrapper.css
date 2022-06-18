@@ -1,7 +1,7 @@
 .text {
     overflow: visible;
     word-wrap: break-word;
-    max-width: 35rem;
+    max-width: 33rem;
     color: black;
 }
 
