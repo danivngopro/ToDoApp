@@ -14,7 +14,6 @@ export default function TodoWrapper({
   const [isEditing, setIsEditing] = React.useState(false);
 
   const handleEditing = (todo, newTitle) => {
-    console.log(1);
     if(isEditing) handleEdit(todo, newTitle);
     setIsEditing(!isEditing);
   }
@@ -30,22 +29,8 @@ export default function TodoWrapper({
   };
   return (
     <div className="todo">
-      <div className="checkboxContainer">
-        {todo.completed ? (
-          <input type="checkbox"
-            className="checkboxBtn"
-            onClick={() => toggleComplete(todo)}
-            defaultChecked
-          />
-        ) : (
-          <input type="checkbox"
-            className="checkboxBtn"
-            onClick={() => toggleComplete(todo)}
-          />
-        )}
-      </div>
       {!isEditing ? (
-        <h1 className="text">{todo.title}</h1>
+        <h1 className="text" style={{ textDecoration: todo.completed && "line-through" }}>{todo.title}</h1>
       ) : (
         <input
         className="inputText"
@@ -56,7 +41,7 @@ export default function TodoWrapper({
         />
       )}
       <div>
-        <button className="button-complete">
+        <button className="button-complete" onClick={() => toggleComplete(todo)}>
           <CheckCircleIcon id="i" />
         </button>
         <button
