@@ -1,0 +1,21 @@
+.text {
+    overflow: visible;
+    word-wrap: break-word;
+    max-width: 35rem;
+    color: black;
+}
+
+.inputText {
+    overflow: visible;
+    word-wrap: break-word;
+    max-width: 19rem;
+}
+
+.checkboxBtn {
+    max-width: 20px;
+    max-height: 3px;
+}
+
+.checkboxContainer {
+    width: 1rem;
+}

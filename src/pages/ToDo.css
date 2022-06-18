@@ -38,3 +38,12 @@ h3 {
   color: wheat;
 
 }
+
+.todo_container { 
+  overflow: auto;
+  max-height: 37rem;
+}
+
+.ToDoListAddContainer {
+  padding-bottom: 18px;
+}

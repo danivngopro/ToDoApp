@@ -1,7 +1,9 @@
+import "./ToDoWrapper.css";
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 export default function TodoWrapper({
   todo,
   toggleComplete,
@@ -9,6 +11,13 @@ export default function TodoWrapper({
   handleEdit,
 }) {
   const [newTitle, setNewTitle] = React.useState(todo.title);
+  const [isEditing, setIsEditing] = React.useState(false);
+
+  const handleEditing = (todo, newTitle) => {
+    console.log(1);
+    if(isEditing) handleEdit(todo, newTitle);
+    setIsEditing(!isEditing);
+  }
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -21,23 +30,38 @@ export default function TodoWrapper({
   };
   return (
     <div className="todo">
-      <input
-        style={{ textDecoration: todo.completed && "line-through" }}
-        type="text"
-        value={todo.title === "" ? newTitle : todo.title}
-        className="list"
-        onChange={handleChange}
-      />
+      <div className="checkboxContainer">
+        {todo.completed ? (
+          <input type="checkbox"
+            className="checkboxBtn"
+            onClick={() => toggleComplete(todo)}
+            defaultChecked
+          />
+        ) : (
+          <input type="checkbox"
+            className="checkboxBtn"
+            onClick={() => toggleComplete(todo)}
+          />
+        )}
+      </div>
+      {!isEditing ? (
+        <h1 className="text">{todo.title}</h1>
+      ) : (
+        <input
+        className="inputText"
+          style={{ textDecoration: todo.completed && "line-through" }}
+          type="text"
+          value={todo.title === "" ? newTitle : todo.title}
+          onChange={handleChange}
+        />
+      )}
       <div>
-        <button
-          className="button-complete"
-          onClick={() => toggleComplete(todo)}
-        >
+        <button className="button-complete">
           <CheckCircleIcon id="i" />
         </button>
         <button
           className="button-edit"
-          onClick={() => handleEdit(todo, newTitle)}
+          onClick={() => handleEditing(todo, newTitle)}
         >
           <EditIcon id="i" />
         </button>

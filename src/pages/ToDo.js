@@ -87,19 +87,25 @@ function ToDo() {
       <div className="body">
         <div className="ToDoListAdd">
           <h1 className="mylistHeadline">My list</h1>
-          <div>
+          <div className="ToDoListAddContainer">
             <ToDoListAdd />
           </div>
           <div className="todo_container">
-            {todos.map((todo) => (
-              <TodoWrapper
-                key={todo.id}
-                todo={todo}
-                toggleComplete={toggleComplete}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-              />
-            ))}
+            {todos.length > 0 ? (
+              todos.map((todo) => (
+                <TodoWrapper
+                  key={todo.id}
+                  todo={todo}
+                  toggleComplete={toggleComplete}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+              ))
+            ) : (
+              <div className="loadingContainer">
+                <LoadingSpinner />
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import "./ToDoListAdd.css";
 import * as React from "react";
-import { db } from '../firebase/base';
+import { db } from "../firebase/base";
 import { collection, addDoc } from "firebase/firestore";
 
 export default function ToDoListAdd() {
@@ -18,16 +18,17 @@ export default function ToDoListAdd() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="input_container">
+      <div className="inputNbtnContainer">
         <input
+          className="input_container"
           type="text"
           placeholder="Enter todo..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-      </div>
-      <div className="btn_container">
-        <button>Add</button>
+        <div className="btn_container">
+          <button>Add</button>
+        </div>
       </div>
     </form>
   );
