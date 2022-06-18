@@ -9,7 +9,7 @@ import ForgotPass from './pages/ForgotPass';
 
 function App() {
   return (
-    <>
+    <div className='appContainer'>
       <Navbar />
       <div className='comp'>
         <Routes>
@@ -20,7 +20,7 @@ function App() {
           <Route path='/resetpass' element={<ForgotPass />} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 }
 

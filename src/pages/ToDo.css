@@ -3,6 +3,38 @@
   justify-content: center;
 }
 
-.container {
-    padding-top: 2rem;
+.welcomeDiv {
+  display: flex;
+  justify-content:  space-between;
+}
+
+.signOutBtn {
+  height: 2rem;
+  margin-top: .9rem;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+}
+
+.todoList {
+  height: 50rem;
+  width: 60rem;
+  background-color: rgb(64, 87, 87);
+  border-radius: 15px;
+}
+
+.mylistHeadline {
+  background-color: #555;
+  color: wheat;
+  font-size: 3rem;
+  height: 4rem;
+  margin-top: 0px;
+  border-radius: 15px;
+}
+
+h3 {
+  color: wheat;
+
 }

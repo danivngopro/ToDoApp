@@ -15,18 +15,20 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/base';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 function Login() {
     const router = useNavigate();
     const theme = createTheme();
 
+  const [errorMessage, setErrorMessage] = useState(null);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         signInWithEmailAndPassword(auth, data.get('email'), data.get('password')).then(res => {
-            console.log('login successful');
             router('/');
-        }).catch(err => console.log(err));
+        }).catch(err => setErrorMessage('Email or password incorrect.'));
     };
 
     return (
@@ -63,6 +65,7 @@ function Login() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
+                        <Typography className="errorMessage">{errorMessage}</Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"

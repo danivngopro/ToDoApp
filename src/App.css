@@ -2,3 +2,9 @@
     margin: 1rem;
     text-align: center;
 }
+
+.appContainer {
+    background-color: rgb(138, 137, 137);
+    height: 100vh;
+    min-width: 40rem;
+}

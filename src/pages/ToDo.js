@@ -4,10 +4,10 @@ import { auth } from "../firebase/base";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
 import LoadingSpinner from "../components/LoadingSpinner";
+import Button from "@mui/material/Button";
+import ToDoList from '../components/ToDoList';
 
 function ToDo() {
-  console.log(auth.currentUser);
-
   const router = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -30,17 +30,32 @@ function ToDo() {
   };
 
   return (
-    <div className="container">
-      {!isLoading ? (
-        <>
-          <h3>Hello {auth.currentUser.displayName}</h3>
-          <button onClick={handleSignOut}>Sign Out</button>
-        </>
-      ) : (
-        <div className="loadingContainer">
-          <LoadingSpinner />
+    <div>
+      <div className="container">
+        {!isLoading ? (
+          <div className="welcomeDiv">
+            <h3>Hello {auth.currentUser.displayName}</h3>
+            <Button
+              variant="outlined"
+              color="error"
+              className="signOutBtn"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </Button>
+          </div>
+        ) : (
+          <div className="loadingContainer">
+            <LoadingSpinner />
+          </div>
+        )}
+      </div>
+      <div className="body">
+        <div className="todoList">
+          <h1 className="mylistHeadline">My list</h1>
+          <ToDoList className="listContent"/>
         </div>
-      )}
+      </div>
     </div>
   );
 }
