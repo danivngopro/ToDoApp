@@ -5,7 +5,17 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Button from "@mui/material/Button";
-import ToDoList from '../components/ToDoList';
+import ToDoListAdd from "../components/ToDoListAdd";
+import TodoWrapper from "../components/ToDoWrapper";
+import {
+  collection,
+  query,
+  onSnapshot,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "../firebase/base";
 
 function ToDo() {
   const router = useNavigate();
@@ -27,6 +37,30 @@ function ToDo() {
         router("/login");
       })
       .catch((err) => console.log(err));
+  };
+
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const q = query(collection(db, "todos"));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let todosArray = [];
+      querySnapshot.forEach((doc) => {
+        todosArray.push({ ...doc.data(), id: doc.id });
+      });
+      setTodos(todosArray);
+    });
+    return () => unsub();
+  }, []);
+
+  const handleEdit = async (todo, title) => {
+    await updateDoc(doc(db, "todos", todo.id), { title: title });
+  };
+  const toggleComplete = async (todo) => {
+    await updateDoc(doc(db, "todos", todo.id), { completed: !todo.completed });
+  };
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "todos", id));
   };
 
   return (
@@ -51,9 +85,22 @@ function ToDo() {
         )}
       </div>
       <div className="body">
-        <div className="todoList">
+        <div className="ToDoListAdd">
           <h1 className="mylistHeadline">My list</h1>
-          <ToDoList className="listContent"/>
+          <div>
+            <ToDoListAdd />
+          </div>
+          <div className="todo_container">
+            {todos.map((todo) => (
+              <TodoWrapper
+                key={todo.id}
+                todo={todo}
+                toggleComplete={toggleComplete}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -2,8 +2,7 @@ import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-export default function TodoList({
+export default function TodoWrapper({
   todo,
   toggleComplete,
   handleDelete,
