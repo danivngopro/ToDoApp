@@ -39,7 +39,7 @@ function ToDo() {
       .catch((err) => console.log(err));
   };
 
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState();
 
   useEffect(() => {
     if (!isLoading) {
@@ -95,7 +95,7 @@ function ToDo() {
             <ToDoListAdd />
           </div>
           <div className="todo_container">
-            {todos.length > 0 ? (
+            {todos ? (
               todos.map((todo) => (
                 <TodoWrapper
                   key={todo.id}
